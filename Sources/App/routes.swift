@@ -2,13 +2,14 @@ import Fluent
 import Vapor
 
 func routes(_ app: Application) throws {
-    app.get { req in
-        return "It works!"
+    app.get { request in
+        "Hello World"
     }
-
-    app.get("hello") { req -> String in
-        return "Hello, world!"
+    let controllers: [RouteCollection] = [
+        CarsController(),
+        UsersController()
+    ]
+    try controllers.forEach { controller in
+        try app.register(collection: controller)
     }
-
-    try app.register(collection: TodoController())
 }
